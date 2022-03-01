@@ -22,4 +22,42 @@ dat3 <- data.frame() #빈객체 데이터 프레임으로 지정함
 dat3=edit(dat3) #edit() : 데이터프레임 직접 창에 입력 
 dat3 #저장된 객체 확인 
 
+#예제 2-6
+sink("printa.txt") #iris 데이터 세트 외부 txt파일로 저장 
+summary(iris) #iris 기술통계량 
+sink() #종료시 sink()로마감 
 
+#예제 2-7
+write.csv(dat,'dat_exam1.csv') #csv파일로 저장 
+
+#예제 2-8
+write.table(dat,'dat_exam2.txt') #txt파일로 저장(공백으로 구별)
+write.table(dat,'dat_exam2.txt', sep=",") #(sep=","콤마 구별 옵션)
+
+#예제 2-9
+dat <- read.csv('dat_exam1.csv')
+dat
+
+#예제 2-10
+us_dat <- read.csv('USArrestd.csv', header = T) #csv파일 있다고 가정 
+head(us_dat) #head() : 데이터 확인 
+
+us_dat <- read.csv("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/datasets/USArrests.csv")
+
+#2.3.2
+str(us_dat)
+
+#예제 2-11
+us_dat2 <-read.csv("USArrestd.csv', header=T, stringsAsFactors=F) 
+str(us_dat2) #?? 
+
+#예제 2-12
+read.table('dat_exam2.txt', header=T) #read.table() : 첫번째행 변수명 디폴트값 아님 
+nadat <- read.table('dat3_exam1.txt', na.strings='aa', header=T) #aa를 결측치로 인식하여 불로올때 
+nadat
+
+#2.4.1 
+ls() #작업공간에 생성된 객체 확인 
+
+#2.4.2
+rm(list=ls()) #생성된 객체 모두 지우기 
