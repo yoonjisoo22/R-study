@@ -1,0 +1,61 @@
+#프로그램 2-8 : 예제 2-3의 막대그래프 작성, 53p
+
+install.packages("ggplot2")
+library(ggplot2)
+transp <- c("bicycle", "bus","bus","walking", "bus","bicycle", "bicycle",
+            "bus", "bus", "bus", "bicycle", "bus", "bicycle", "bicycle",
+            "walking", "bus", "bus","bicycle", "bicycle","walking", "walking",
+            "bicycle","bus","bus","bus","bus","bicycle","bus","bus",
+            "bicycle", "bicycle", "bicycle" )
+dat1 <- data.frame(transp) #dat1에 transp라는 컬럼명의 데이터 저장 
+dat1 
+
+#막대그래프 작성 
+ggplot(data = dat1) +geom_bar(mapping = aes(x=transp)) # 막대그래프 기본 형태 : ggplot() + geom_bar()
+ggplot(data = dat1) +geom_bar(mapping = aes(x=transp)) + 
+  xlab("Transportation") # 수평축 이름 지정 
+
+install.packages("forcats") #fct_infreq()함수 내장한 패키지 "forcats" 설치 
+library(forcats) #패키지 실행 
+ggplot(data = dat1)+geom_bar(mapping=aes(x=fct_infreq(transp))) +
+  xlab("Transportation") #fct_infreq() 함수 : 빈도수별 교통수단 순서 보여줌 
+
+#프로그램 2-9 : 예제 2-4의 막대그래프 작성, 54p 
+obesity <- factor(c("underweight", "normal", "overweight", "obese"),
+                  levels = c("underweight", "normal", "overweight", "obese")) #factor() : 순서대로 범주 지정하는 함수 
+count <- c(6,69,27,13)  #각 범주별 환자 수 
+perc <- count/sum(count)*100 #sum() :각 카테고리별 환자수를 전체 환자수로 나눠주면 % 계산됨  
+dat2 <- data.frame(obesity, count, perc) #각 데이터 데이터프레임 만들어주기 
+
+ggplot(data=dat2) + geom_bar(mapping=aes(x=obesity, y=perc), 
+                             stat = "identity") #y를 지정해줄 경우, 그대로 변환없이 사용하기 위해 stat= "identity" 옶션 추가 
+
+ggplot(data=dat2) + geom_bar(mapping=aes(x=obesity, y=perc), 
+                           stat = "identity") +
+  xlab("Obesity") + ylab("Percentage(%)")  #x축, y축 레이블 이름 추가 
+
+
+#프로그램 2-10 : 예제 2-5의 원그래프 작성, 54-55p 
+table(transp)
+
+dat3 <- data.frame(transportation=c("bus","bicycle","walking"),
+                   count=c(15,13,4)) 
+
+count <- c(15,13,4) #위 문제에서 count 환자수로 지정되어 있어 교통빈도수로 다시 지정해야함 
+str(dat3) #구조 보기 
+
+# 그래프가 count 함수가 적용이 안되고, 1:1:1 비율로 그려짐, 이유는 모르겠음. [--?]
+ggplot(data = dat3)+geom_bar(mapping=aes(x= "", y = "count", 
+  fill=transportation), stat = "identity") + 
+  coord_polar("y",start=0) #원그래프 기본 형태 
+
+ggplot(data = dat3)+geom_bar(mapping=aes(x= "", y= "count", 
+  fill=transportation), stat = "identity") + 
+  coord_polar("y",start=0)+xlab("") + ylab("") + #x
+  theme(axis.text=element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid=element_blank())   # 깔끔하게 원만 남기는 테마 함수 
+  
+
+
+  
