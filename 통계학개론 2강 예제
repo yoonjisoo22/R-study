@@ -56,6 +56,51 @@ ggplot(data = dat3)+geom_bar(mapping=aes(x= "", y= "count",
         axis.ticks = element_blank(),
         panel.grid=element_blank())   # 깔끔하게 원만 남기는 테마 함수 
   
+# 프로그램 2-11 : 예제 2-6 히스토그램 작성
+score <- c(93,83,91,68,75,87,89,96,97,67,83,81,87,80,64,83,88,76,91,98,72,80,69,80,84,71,91,81,88,73)
+hist(score, main="점수 히스토그램", xlab = "Score", ylab="") #메인제목, xlab 이름 변경 
+
+#프로그램 2-12 : 예제 2-7 히스토그램 작성
+rv <- c(0.8,0.8,0.8,0.9,0.9,0.9,0.9,0.9,1,1,1.8,2,2.1,2.3,2.4,2.8,2.9,3,
+      3.2,3.3,3.5,3.8,3.8,3.9,4,4.2,4.4,4.5,5.1,5.3,5.3,5.4,14,17,18,19,21,21,23,25,27,
+      28,32,34,36,41,42,44,48,49,51,54,59,60,61,62,80,240)
+hist(rv, main="", xlab = "CRP", breaks = 20) #hist() 내 'breaks= 숫자' 구문: 숫자만큼 계급으로 나눠진 hist 산출
+
+#프로그램 2-13 : 예제 2-8의 히스토그램 작성
+set.seed(2021)
+rn <- c(rnorm(100,5,2), rnorm(100, 10, 2))
+hist(rn)
+hist(rn, breaks = 20, main="", xlab="value") #breaks = 20 만큼의 계급  
+hist(rn, breaks = 5, main="", xlab="value") #breaks = 5 만큼의 계급 
+
+#프로그램 2-14 : 에제 2-9의 점도표 작성 
+age <- c(57,61,47,57,48,58,57,61,54,50,68,51)
+m.age <- mean(age)
+par(xpd=TRUE)
+stripchart(age, axes=F, pch=19, xlim=c(45,70),method="stack", offset=5,
+           cex=1.5) 
+
+
+axis(1,at=seq(45,70,5))
+points(m.age, -5, pch=17, cex=2, col="blue") #--? points 생성이 안됨 
+
+#프로그램 2-15 : 예제 1-10의 점도표 작성 
+books <- c(6,0,1,3,1,5,2,3,1,3,67)
+m.books <- mean(books)
+par(xpd=TRUE)
+stripchart(books, axes=F, pch=1, xlim=c(0,70),method="stack", offset = 5,
+           cex=1.5)
+axis(1,at=seq(0,70,10))
+points(m.books, -5, pch=17, cex=2, col="red") #--? points 생성이 안됨 
+
+#프로그램 2-16 : 예제 2015의 다섯 수치요약과 상자그림
+age <- c(57,61,47,57,48,58,57,61,54,50,68,51)
+fivenum(age) #다섯 수치 요약 
+boxplot(age, ylab="Age")
+
+#프로그램 2-17 : 예제 2-16의 상자그림 
+member <- c(92,107,180,90,78,91,102,88,106,125,95,102,162)
+boxplot(member,ylab="Number of board members")
 
 
   
