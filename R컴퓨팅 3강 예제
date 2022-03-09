@@ -1,0 +1,207 @@
+#예제3-1
+c(3,4,5,6,7)
+c(3:7)
+c(7,3,5,4,6)
+
+#예제 3-2
+c("1","KOREA","NATIONAL","OPEN","UNIVERSITY")
+
+#예제 3-3
+v1 <- c("1","KOREA","NATIONAL","OPEN","UNIVERSITY")
+length(v1) #벡터 크기(개수) 출력 
+
+#예제 3-4 
+c(F,F,T)
+c(TRUE, FALSE, TRUE)
+
+#예제 3-5
+scan()
+scan(sep=",")
+
+#예제 3-6
+seq(from=3, to=7, by=1) #3에서 7까지 1씩 증가하며 출력 
+seq(to=7, from=3, by=1) #to/from 순서 상관 없음 
+seq(by=1, from=3, to=7) #to/from/by 순서 상관 없음 
+seq(3,7,1) # 매개변수표시 생략시 : from, to, by 순서로 출력 
+
+#예제 3-7
+seq(from=3,to=7, length=3) #3에서 7까지 3개 출력 
+seq(from=1, by=0.05, along=1:5) #1에서 0.05만큼 증가하는 값 5개 출력 
+seq(from=1, to=5, along=1:6) #1에서 5까지 값 6개 출력 
+
+#예제 3-8 
+rep(c(1,2), times=2) #c()함수 값 2번 반복 
+rep(1:2, times=2) #rep()함수 값 2번 반복 
+rep(c(2,4), times=c(2,1)) #앞 원소 2번, 뒤 원소 1번 반복 
+rep(c(2,4), each=2) #c()함수 값 각각 2번 반복
+rep(c(2,4,8), length=5) #벡터 반복하되 크기만큼 한정하여 출력 
+
+#예제 3-9 
+v1 <- c(11:20)
+v1
+v1[c(3,5)] #3번째, 5번째 값 출력 
+v1[v1>15] #v1 값 중 15보다 큰 값 출력 
+v1[c(-2,-4)] #2번째, 4번째 값 제외하고 출력 
+
+#예제 3-10 
+v2 <- c(3:7)
+v2
+replace(v2,2,10) #v2의 2번째 원소값을 10으로 변경 
+append(v2,8,after=5) #v2의 5번째 값 다음에 8 추가 
+v3 <- append(v2,8,after=5)
+v3
+
+#예제 3-11
+#3을 3번 반복 : rep(3,3)
+#3에서 7까지 2만큼 증가분 : seq(3,7,by=2)
+#3에서 7까지 크기 3만큼 역순 : rev(3,7,length=3)
+#4를 3번 반복 : rep(4,3)
+x <- c(rep(3,3), seq(3,7,by=2),rev(seq(3,7,length=3)), rep(4,3))
+x
+sort(x) #오름차순 정렬 
+rank(x) #자료의 순위를 출력 
+order(x) #오름차순에 의한 위치값 출력 
+
+#예제 3-12
+matr <- matrix(1:9,nrow=3)
+matr
+length(matr) #원소 개수
+mode(matr) #원소 형태 
+dim(matr) #행/열 개수 
+
+#예제 3-13
+r1 <- c(1,2,3)
+r2 <- c(4,5,6)
+r3 <- c(7,8,9)
+rbind(r1,r2,r3) #행기준 결합 
+c1 <- c(1:3)
+c2 <- c(4:6)
+c3 <- c(7:9)
+cbind(c1,c1,c3) #열기준 결합 
+m1 <- 1:9
+dim(m1) <- c(3,3)
+m1
+
+#예제 3-14
+#1)원소추출
+mat <- matrix(c(1,2,3,4,5,6,7,8,9),ncol=3,byrow=T) #행기준 3열의 c벡터 행렬 생성 
+mat
+mat[1,] #1행 값 출력 
+mat[,3] #3열 값 출력 
+mat[mat[,3]>4,2] #3열에서 4보다 큰 행의 값 중 2열의 모든 값 
+mat[2,3] #2행 3열 값 출력 
+
+#2)apply()함수 
+Height <- c(140,155,142,175)
+size.1 <- matrix(c(130,26,110,24,118,25,112,25), ncol=2, byrow=T, 
+                 dimnames = list(c("Lee","Kim","Park","Choi"),c("Weight","Waist"))) 
+size <- cbind(size.1,Height)
+size
+colmean <- apply(size,2,mean) #열의 평균값 계산 
+colmean
+rowmean <- apply(size,1,mean) #행의 평균값 계산 
+rowmean
+colvar <- apply(size,2,var) #열의 분산값 계산 
+colvar
+rowvar <- apply(size,1,var) #행의 분산값 계산 
+rowvar
+
+#3)sweep함수 (기본연산 : 마이너스(-))
+sweep(size,2,colmean) #size 각 열의 값과 열평균 차
+sweep(size,1,rowmean) #size 각 행의 값과 행평균 차
+sweep(size,1,c(1,2,3,4),"+") #size 각 행에 벡터값 더해줌 
+sweep(size,1,c(1,2,3,4),"-") #size 각 행에 벡터값 빼줌 
+
+#예제 3-15
+m1 <- matrix(1:4, nrow=2) #1~4까지 2행2열 행렬 생성
+m1
+m2 <- matrix(5:8, nrow=2)
+m2
+m1%*%m2 #m1*m2 행렬 곱셈 
+solve(m1) #m1 역행렬
+t(m1) #m1 전치행렬 
+
+#예제 3-16
+arr <- array(1:24,c(3,3,2)) #1~18까지 자료 생성 
+dimnames(arr) <- list(paste("row",c(1:3)),paste("col",c(1:3)),paste("ar", c(1:2)))
+arr
+length(arr) #개수 
+mode(arr) #형태
+dim(arr) #각 차원 벡터 크기 
+dimnames(arr) #각 차원 리스트 이름 
+
+#예제 3-17
+array(1:6) #1~6 으로 1차원 배열 생성 
+array(1:6, c(2,3)) #1~6으로 2차원 배열 생성 
+array(1:8, c(2,2,2)) #1~8로 3차원 배열 생성
+arr <- c(1:24)
+dim(arr) <- c(3,4,2) #3행 4열 2행렬 생성 
+arr
+
+#예제 3-18
+ary1 <- array(1:8, dim=c(2,2,2))
+ary2 <- array(8:1, dim=c(2,2,2))
+ary1
+ary2
+ary1+ary2 #배열 덧셈 
+ary1[,,1] #배열1 추출 
+ary1[1,1,] #배열의 1행 1열 값 추출 
+ary1[1,,-2] #배열의 1행 추출 
+
+#예제 3-19
+a <- 1:10
+b <- 11:15
+klist <- list(vec1=a,vec2=b,descrip="example") #리스트 생성 
+length(klist) #자료 개수 
+mode(klist) #자료 형태 
+names(klist) #각 성분의 이름 
+
+#예제 3-20
+list1 <- list("A",1:8) 
+list1
+list1[[3]] <- list(c(T,F)) #세번째 성분 추가 
+list1[[2]][9] <- 9 #2번째 성분 9번째에 원소"9"추가 
+list1
+list1[3] <- NULL #3번째 성분 삭제 
+list1[[2]] <- list1[[2]][-9] #2번째 성분 9번째 원소 삭제 
+list1
+
+#예제 3-21
+a <- 1:10
+b <- 11:15
+nlist <- list(vec1=a,vec2=b,descrip="example")
+nlist
+nlist[[2]][5] #2번째 벡터의 5번째 원소 추출
+nlist$vec2[c(2,3)] #2번째 벡터의 2번째,3번째 원소 추출 
+
+#예제 3-22
+d2 <- read.table("C:/Users/GW/Documents/R/story.txt",row.names = 'num', header=T)
+d2
+
+#예제 3-23
+char1 <- rep(LETTERS[1:3],c(2,2,1))
+char1
+num1 <- rep(1:3,c(2,2,1))
+num1
+test1 <- data.frame(char1,num1)
+test1
+
+#예제 3-24
+a1 <- c("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o")
+dim(a1) <- c(5,3) #5행 3열인 a1 행렬 생성 
+a1
+test3 <- as.data.frame(a1) #a1을 데이터 프레임으로 변환 
+test3
+
+#예제 3-25
+cbind(test1,test3) #test1,test3을 옆으로 병합 
+char1 <- rep(LETTERS[1:3],c(1,2,2))
+char1
+num1 <- rep(1:3,c(1,1,3))
+num1
+test4 <- data.frame(char1,num1)
+test4
+rbind(test1,test4) #test1,test4를 아래로 병합 
+
+#예제 3-26
+merge(test1,test4) #test1,test4 결합 : 동일한 변수에 대해 같은 값을 갖는 행을 기준으로 결합 
